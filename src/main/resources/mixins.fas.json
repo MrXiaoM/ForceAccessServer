@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8.0",
+  "package": "top.mrxiaom.fas.mixin",
+  "refmap": "ForceAccessServer-refmap.json",
+  "target": "@env(DEFAULT)",
+  "compatibilityLevel": "JAVA_8",
+  "client": [
+    "MixinYggdrasilSocialInteractionsService",
+    "MixinOfflineSocialInteractions"
+  ]
+}
