@@ -1,0 +1,48 @@
+plugins {
+    id "dev.architectury.loom" version "1.0-SNAPSHOT"
+}
+
+apply plugin: "dev.architectury.loom"
+apply plugin: 'java'
+
+archivesBaseName = rootProject.name + "-forge"
+
+loom {
+    forge.mixinConfig "mixins.fas.json"
+}
+
+repositories {
+    maven { url "https://repo.codemc.io/repository/maven-public/" }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.officialMojangMappings()
+    forge "net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}"
+}
+
+processResources {
+    from "${project.rootDir}/LICENSE"
+
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    from(sourceSets.main.resources.srcDirs) {
+        expand('version': version)
+        include 'META-INF/mods.toml'
+    }
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title": rootProject.name,
+                "Specification-Vendor": "MrXiaoM",
+                "Specification-Version": "1", // We are version 1 of ourselves
+                "Implementation-Title": archivesBaseName,
+                "Implementation-Version": "${version}",
+                "Implementation-Vendor" :"MrXiaoM",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfigs": "mixins.fas.json",
+                "ContainedDeps": ""
+        ])
+    }
+}
