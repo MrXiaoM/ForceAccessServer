@@ -16,4 +16,10 @@
 
 这就是这个mod诞生的原因。因为以上提到的这两个类都不是混淆的，理论上只要 authlib 版本正确就可以使用，即理论全版本通用。
 
-Fabric Only. No Forge. 如果你需要 Forge 版本请自行移植。
+由于新版 Forge 的 Mixin 范围有亿点点窄，故 Forge 版并不修改 authlib，而是修改 Minecraft 中获取配置的部分。
+
+# 编译
+
+```shell
+./gradlew build
+```
