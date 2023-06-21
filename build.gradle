@@ -17,8 +17,10 @@ subprojects {
 }
 
 tasks.register("build", Copy.class) {
-    subprojects { dependsOn(tasks.build) }
+    subprojects {
+        dependsOn(tasks.build)
+        from new File(buildDir, "libs/" + rootProject.name + "-" + name + "-" + version + ".jar")
+    }
     duplicatesStrategy DuplicatesStrategy.EXCLUDE
-    subprojects { from fileTree(new File(buildDir, "libs")) }
     destinationDir new File(buildDir, "libs")
 }
