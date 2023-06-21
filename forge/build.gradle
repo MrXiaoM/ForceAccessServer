@@ -9,6 +9,7 @@ archivesBaseName = rootProject.name + "-forge"
 
 loom {
     forge.mixinConfig "mixins.fas.json"
+    mixin.defaultRefmapName.set(mixin_refmap)
 }
 
 repositories {

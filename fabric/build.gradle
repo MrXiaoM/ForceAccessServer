@@ -5,6 +5,9 @@ plugins {
 
 archivesBaseName = rootProject.name + "-fabric"
 
+loom.mixin {
+    defaultRefmapName.set(mixin_refmap)
+}
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
