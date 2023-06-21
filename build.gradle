@@ -15,3 +15,10 @@ subprojects {
     version = rootProject.version
     group = rootProject.group
 }
+
+tasks.register("build", Copy.class) {
+    subprojects { dependsOn(tasks.build) }
+    duplicatesStrategy DuplicatesStrategy.EXCLUDE
+    subprojects { from fileTree(new File(buildDir, "libs")) }
+    destinationDir new File(buildDir, "libs")
+}
