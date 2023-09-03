@@ -3,10 +3,10 @@ loaderVersion="[1,)"
 license="AGPL-3.0"
 [[mods]]
 modId="fas"
-displayName="ForceAccessServer"
+displayName="${name}"
 version="${version}"
 logoFile="icon.png"
 authors="MrXiaoM"
 description='''
-修复离线模式下无法进入多人游戏、发送聊天的问题
+${description}
 '''

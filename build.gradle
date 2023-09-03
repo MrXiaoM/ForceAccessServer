@@ -4,8 +4,9 @@ plugins {
     id 'maven-publish'
 }
 
-version = '1.0.1'
+version = '1.0.2'
 group = 'top.mrxiaom'
+description = "修复离线模式下无法进入多人游戏、发送聊天的问题"
 
 repositories {
     maven { url = "https://maven.fastmirror.net/repositories/minecraft/" }
@@ -41,7 +42,11 @@ processResources {
 
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
     from(sourceSets.main.resources.srcDirs) {
-        expand('version': version)
+        expand(
+                'name': rootProject.name,
+                'description': description,
+                'version': version
+        )
         include 'fabric.mod.json'
         include 'META-INF/mods.toml'
     }
