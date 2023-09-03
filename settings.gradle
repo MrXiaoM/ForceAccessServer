@@ -18,4 +18,3 @@ pluginManagement {
 rootProject.name = 'ForceAccessServer'
 
 include(':fabric')
-include(':forge')

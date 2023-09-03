@@ -18,7 +18,7 @@
   "environment": "client",
   "entrypoints": {
     "main": [
-      "top.mrxiaom.fas.ForceAccessServer"
+      "top.mrxiaom.fas.FabricMod"
     ]
   },
   "mixins": [

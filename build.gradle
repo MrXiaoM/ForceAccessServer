@@ -3,6 +3,7 @@ group = 'top.mrxiaom'
 
 subprojects {
     repositories {
+        maven { url = "https://maven.fastmirror.net/repositories/minecraft/" }
         maven { url = "https://repo.huaweicloud.com/repository/maven/" }
         mavenCentral()
     }
@@ -14,13 +15,4 @@ subprojects {
 
     version = rootProject.version
     group = rootProject.group
-}
-
-tasks.register("build", Copy.class) {
-    subprojects {
-        dependsOn(tasks.build)
-        from new File(buildDir, "libs/" + rootProject.name + "-" + name + "-" + version + ".jar")
-    }
-    duplicatesStrategy DuplicatesStrategy.EXCLUDE
-    destinationDir new File(buildDir, "libs")
 }
