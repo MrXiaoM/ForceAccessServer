@@ -1,0 +1,8 @@
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
+}
+dependencies {
+    compileOnly "com.mojang:authlib:2.1.28"
+}

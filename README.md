@@ -22,8 +22,17 @@
 
 Forge 版 mod 不依赖 Mixin，作为 FML CoreMod 使用 [ASM Transformer](src/main/resources/transformer.fas.js) 修改 `net.minecraft.client.Minecraft` 的字节码，`理论1.13+`通用。
 
+# authlib 3
+
+从 1.18 开始使用 authlib 3，结构变了，未雨绸缪，所以我决定更新支持 authlib 3
+
+分析的依赖是 `com.mojang:authlib:3.3.39` 
+
+
+
 # 编译
 
+需使用 java 17 编译，编译后的类文件目标为 java 8
 ```shell
 ./gradlew build
 ```

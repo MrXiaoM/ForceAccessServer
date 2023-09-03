@@ -14,12 +14,22 @@ function initializeCoreMod() {
             },
             'transformer': function (cn) {
                 cn.methods.forEach(function (mn) {
+                    // authlib 2
                     if (mn.desc.endsWith('Lcom/mojang/authlib/minecraft/SocialInteractionsService;')) {
-                        print('ForceAccessServer Mod Injected! (' + cn.name + '.' + mn.name + ')');
+                        print('ForceAccessServer Mod Injected authlib 2 (' + cn.name + '.' + mn.name + ')');
                         var node = mn.instructions.get(0);
-                        mn.instructions.insertBefore(node, new TypeInsnNode(Opcodes.NEW, 'top/mrxiaom/fas/UnlimitedSocialInteractions'));
+                        mn.instructions.insertBefore(node, new TypeInsnNode(Opcodes.NEW, 'top/mrxiaom/fas/UnlimitedSocialInteractions2'));
                         mn.instructions.insertBefore(node, new InsnNode(Opcodes.DUP));
-                        mn.instructions.insertBefore(node, new MethodInsnNode(Opcodes.INVOKESPECIAL, 'top/mrxiaom/fas/UnlimitedSocialInteractions', '<init>', '()V', false));
+                        mn.instructions.insertBefore(node, new MethodInsnNode(Opcodes.INVOKESPECIAL, 'top/mrxiaom/fas/UnlimitedSocialInteractions2', '<init>', '()V', false));
+                        mn.instructions.insertBefore(node, new InsnNode(Opcodes.ARETURN));
+                    }
+                    // authlib 3 (1.18+)
+                    if (mn.desc.endsWith('Lcom/mojang/authlib/minecraft/UserApiService;')) {
+                        print('ForceAccessServer Mod Injected authlib 3 (' + cn.name + '.' + mn.name + ')');
+                        var node = mn.instructions.get(0);
+                        mn.instructions.insertBefore(node, new TypeInsnNode(Opcodes.NEW, 'top/mrxiaom/fas/UnlimitedSocialInteractions3'));
+                        mn.instructions.insertBefore(node, new InsnNode(Opcodes.DUP));
+                        mn.instructions.insertBefore(node, new MethodInsnNode(Opcodes.INVOKESPECIAL, 'top/mrxiaom/fas/UnlimitedSocialInteractions3', '<init>', '()V', false));
                         mn.instructions.insertBefore(node, new InsnNode(Opcodes.ARETURN));
                     }
                 });

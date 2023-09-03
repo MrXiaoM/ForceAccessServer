@@ -4,7 +4,7 @@ import com.mojang.authlib.minecraft.SocialInteractionsService;
 
 import java.util.UUID;
 
-public class UnlimitedSocialInteractions implements SocialInteractionsService {
+public class UnlimitedSocialInteractions2 implements SocialInteractionsService {
     @Override
     public boolean serversAllowed() {
         return true;

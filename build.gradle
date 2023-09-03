@@ -1,22 +1,18 @@
 plugins {
-    id 'java'
     id 'fabric-loom' version '1.1-SNAPSHOT'
     id 'maven-publish'
 }
 
-version = '1.0.2'
-group = 'top.mrxiaom'
-description = "修复离线模式下无法进入多人游戏、发送聊天的问题"
+allprojects {
+    version = '1.0.2'
+    group = 'top.mrxiaom'
+    description = "修复离线模式下无法进入多人游戏、发送聊天的问题"
+    apply plugin: 'java'
 
-repositories {
-    maven { url = "https://maven.fastmirror.net/repositories/minecraft/" }
-    maven { url = "https://repo.huaweicloud.com/repository/maven/" }
-    mavenCentral()
-}
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(8)
+    repositories {
+        maven { url = "https://maven.fastmirror.net/repositories/minecraft/" }
+        maven { url = "https://repo.huaweicloud.com/repository/maven/" }
+        mavenCentral()
     }
 }
 tasks.withType(JavaCompile).configureEach {
@@ -24,10 +20,6 @@ tasks.withType(JavaCompile).configureEach {
     sourceCompatibility = "1.8"
     targetCompatibility = "1.8"
 }
-build {
-    archivesBaseName = rootProject.name + '-forge-fabric'
-}
-
 loom.mixin {
     defaultRefmapName.set(mixin_refmap)
 }
@@ -38,7 +30,22 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     compileOnly "net.minecraftforge:forge:1.16.5-36.1.4:universal"
+
 }
+
+jar {
+    def build2 = project(":authlib2").tasks.jar
+    def build3 = project(":authlib3").tasks.jar
+    dependsOn(build2)
+    dependsOn(build3)
+    build2.outputs.files.forEach { from(zipTree(it)) }
+    build3.outputs.files.forEach { from(zipTree(it)) }
+}
+
+build {
+    archivesBaseName += '-forge-fabric'
+}
+
 
 processResources {
     from "${project.rootDir}/LICENSE"
