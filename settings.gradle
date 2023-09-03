@@ -16,5 +16,3 @@ pluginManagement {
 }
 
 rootProject.name = 'ForceAccessServer'
-
-include(':fabric')
