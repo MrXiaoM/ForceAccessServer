@@ -5,7 +5,7 @@ var TypeInsnNode = Java.type('org.objectweb.asm.tree.TypeInsnNode');
 var MethodInsnNode = Java.type('org.objectweb.asm.tree.MethodInsnNode');
 
 function initializeCoreMod() {
-    print('Hello ASM');
+    print('ForceAccessServer ASM transformer loaded!');
     return {
         'CreateSocialInteractionsTransformer': {
             'target': {
