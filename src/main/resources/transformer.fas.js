@@ -24,6 +24,7 @@ function initializeCoreMod() {
                         mn.instructions.insertBefore(node, new InsnNode(Opcodes.ARETURN));
                     }
                     // authlib 3.3 (1.18+)
+                    // TODO 判断 authlib 版本，兼容 1.19
                     if (mn.desc.endsWith('Lcom/mojang/authlib/minecraft/UserApiService;')) {
                         info('ForceAccessServer Mod Injected authlib 3.3 (' + cn.name + '.' + mn.name + ')');
                         var node = mn.instructions.get(0);
