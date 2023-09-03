@@ -24,6 +24,9 @@ tasks.withType(JavaCompile).configureEach {
     sourceCompatibility = "1.8"
     targetCompatibility = "1.8"
 }
+build {
+    archivesBaseName = rootProject.name + '-forge-fabric'
+}
 
 loom.mixin {
     defaultRefmapName.set(mixin_refmap)
