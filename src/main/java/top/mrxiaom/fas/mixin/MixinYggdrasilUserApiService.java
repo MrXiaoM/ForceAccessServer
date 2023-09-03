@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import top.mrxiaom.fas.FabricMod;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 @Pseudo
 @Mixin(targets = { "com.mojang.authlib.yggdrasil.YggdrasilUserApiService" })
@@ -22,9 +23,16 @@ public class MixinYggdrasilUserApiService {
         FabricMod.LOGGER.info("已阻止拉取配置");
         // 懒得导包，而且用java17编译包也导不进来，直接反射
         try {
-            Object allow = Class.forName("top.mrxiaom.fas.UnlimitedSocialInteractions3").getDeclaredField("ALLOW").get(null);
             Field properties = this.getClass().getDeclaredField("properties");
             properties.setAccessible(true);
+            boolean authlib318 = false;
+            for (Method method : properties.get(this).getClass().getDeclaredMethods()) {
+                if (method.getName().equals("reportAbuse")) {
+                    authlib318 = true;
+                    break;
+                }
+            }
+            Object allow = Class.forName("top.mrxiaom.fas.UnlimitedSocialInteractions3_" + (authlib318 ? "18" : "3")).getDeclaredField("ALLOW").get(null);
             properties.set(this, allow);
             FabricMod.LOGGER.info("成功更改配置");
         } catch (Throwable t) {

@@ -5,7 +5,7 @@ var TypeInsnNode = Java.type('org.objectweb.asm.tree.TypeInsnNode');
 var MethodInsnNode = Java.type('org.objectweb.asm.tree.MethodInsnNode');
 
 function initializeCoreMod() {
-    print('ForceAccessServer ASM transformer loaded!');
+    info('ForceAccessServer ASM transformer loaded!');
     return {
         'CreateSocialInteractionsTransformer': {
             'target': {
@@ -16,25 +16,33 @@ function initializeCoreMod() {
                 cn.methods.forEach(function (mn) {
                     // authlib 2
                     if (mn.desc.endsWith('Lcom/mojang/authlib/minecraft/SocialInteractionsService;')) {
-                        print('ForceAccessServer Mod Injected authlib 2 (' + cn.name + '.' + mn.name + ')');
+                        info('ForceAccessServer Mod Injected authlib 2 (' + cn.name + '.' + mn.name + ')');
                         var node = mn.instructions.get(0);
                         mn.instructions.insertBefore(node, new TypeInsnNode(Opcodes.NEW, 'top/mrxiaom/fas/UnlimitedSocialInteractions2'));
                         mn.instructions.insertBefore(node, new InsnNode(Opcodes.DUP));
                         mn.instructions.insertBefore(node, new MethodInsnNode(Opcodes.INVOKESPECIAL, 'top/mrxiaom/fas/UnlimitedSocialInteractions2', '<init>', '()V', false));
                         mn.instructions.insertBefore(node, new InsnNode(Opcodes.ARETURN));
                     }
-                    // authlib 3 (1.18+)
+                    // authlib 3.3 (1.18+)
                     if (mn.desc.endsWith('Lcom/mojang/authlib/minecraft/UserApiService;')) {
-                        print('ForceAccessServer Mod Injected authlib 3 (' + cn.name + '.' + mn.name + ')');
+                        info('ForceAccessServer Mod Injected authlib 3.3 (' + cn.name + '.' + mn.name + ')');
                         var node = mn.instructions.get(0);
-                        mn.instructions.insertBefore(node, new TypeInsnNode(Opcodes.NEW, 'top/mrxiaom/fas/UnlimitedSocialInteractions3'));
+                        mn.instructions.insertBefore(node, new TypeInsnNode(Opcodes.NEW, 'top/mrxiaom/fas/UnlimitedSocialInteractions3_3'));
                         mn.instructions.insertBefore(node, new InsnNode(Opcodes.DUP));
-                        mn.instructions.insertBefore(node, new MethodInsnNode(Opcodes.INVOKESPECIAL, 'top/mrxiaom/fas/UnlimitedSocialInteractions3', '<init>', '()V', false));
+                        mn.instructions.insertBefore(node, new MethodInsnNode(Opcodes.INVOKESPECIAL, 'top/mrxiaom/fas/UnlimitedSocialInteractions3_3', '<init>', '()V', false));
                         mn.instructions.insertBefore(node, new InsnNode(Opcodes.ARETURN));
                     }
+                    // TODO authlib 3.18 (1.19+)
+
+                    // TODO authlib 4 (1.20+)
+
                 });
                 return cn;
             }
         }
     };
+}
+
+function info(s) {
+    ASMAPI.log('INFO', s)
 }

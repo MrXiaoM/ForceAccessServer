@@ -17,4 +17,5 @@ pluginManagement {
 
 rootProject.name = 'ForceAccessServer'
 include 'authlib2'
-include 'authlib3'
+include 'authlib3_3'
+include 'authlib3_18'

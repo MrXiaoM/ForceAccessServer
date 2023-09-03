@@ -34,12 +34,14 @@ dependencies {
 }
 
 jar {
-    def build2 = project(":authlib2").tasks.jar
-    def build3 = project(":authlib3").tasks.jar
-    dependsOn(build2)
-    dependsOn(build3)
-    build2.outputs.files.forEach { from(zipTree(it)) }
-    build3.outputs.files.forEach { from(zipTree(it)) }
+    ["authlib2", "authlib3_3", "authlib3_18"].stream().map {
+        project(it).tasks.jar
+    }.map {
+        dependsOn(it)
+        outputs.files
+    }.forEach {
+        it.forEach { from(zipTree(it)) }
+    }
 }
 
 build {
