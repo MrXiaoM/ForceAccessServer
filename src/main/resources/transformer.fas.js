@@ -29,10 +29,10 @@ function initializeCoreMod() {
                         mn.instructions.insertBefore(node, new MethodInsnNode(Opcodes.INVOKESPECIAL, 'top/mrxiaom/fas/UnlimitedSocialInteractions2', '<init>', '()V', false));
                         mn.instructions.insertBefore(node, new InsnNode(Opcodes.ARETURN));
                     }
-                    // authlib 3.3/3.18 (1.18+/1.19+)
+                    // authlib 3.3/3.18/4.0.43 (1.18+/1.19+/1.20+)
                     if (mn.desc.endsWith('Lcom/mojang/authlib/minecraft/UserApiService;')) {
                         if (authlib318) {
-                            info('ForceAccessServer Mod Injected authlib 3.18 (' + cn.name + '.' + mn.name + ')');
+                            info('ForceAccessServer Mod Injected authlib 3.18/4.0.43 (' + cn.name + '.' + mn.name + ')');
                             var node = mn.instructions.get(0);
                             mn.instructions.insertBefore(node, new TypeInsnNode(Opcodes.NEW, 'top/mrxiaom/fas/UnlimitedSocialInteractions3_18'));
                             mn.instructions.insertBefore(node, new InsnNode(Opcodes.DUP));

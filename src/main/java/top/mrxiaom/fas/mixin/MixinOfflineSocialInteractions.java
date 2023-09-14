@@ -4,6 +4,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Pseudo;
 
+/**
+ * 适用于 1.17 或以下的解决方案
+ */
 @Pseudo
 @Mixin(targets = { "com.mojang.authlib.minecraft.OfflineSocialInteractions" })
 public abstract class MixinOfflineSocialInteractions {

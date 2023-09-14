@@ -49,7 +49,8 @@ Forge 版的方案跟 authlib 2 的方案一致。
 
 ## authlib 4
 
-从 1.20 开始使用 authlib 4，等我有空再看。
+从 1.20 开始使用 authlib 4，~~等我有空再看。~~  
+跟 authlib 3.18 一样。
 
 # 编译
 

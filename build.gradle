@@ -34,20 +34,16 @@ dependencies {
 }
 
 jar {
+    archivesBaseName += '-forge-fabric'
     ["authlib2", "authlib3_3", "authlib3_18"].stream().map {
         project(it).tasks.jar
-    }.map {
+    }.flatMap {
         dependsOn(it)
-        outputs.files
+        it.outputs.files.files.stream()
     }.forEach {
-        it.forEach { from(zipTree(it)) }
+        from(zipTree(it))
     }
 }
-
-build {
-    archivesBaseName += '-forge-fabric'
-}
-
 
 processResources {
     from "${project.rootDir}/LICENSE"

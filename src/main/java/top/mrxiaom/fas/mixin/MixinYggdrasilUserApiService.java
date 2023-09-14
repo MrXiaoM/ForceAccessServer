@@ -10,6 +10,9 @@ import top.mrxiaom.fas.FabricMod;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+/**
+ * 适用于 1.18+ 的解决方案
+ */
 @Pseudo
 @Mixin(targets = { "com.mojang.authlib.yggdrasil.YggdrasilUserApiService" })
 public class MixinYggdrasilUserApiService {
@@ -18,7 +21,7 @@ public class MixinYggdrasilUserApiService {
      * @author MrXiaoM
      * @throws AuthenticationException
      */
-    @Overwrite
+    @Overwrite(remap = false)
     private void fetchProperties() throws AuthenticationException {
         FabricMod.LOGGER.info("已阻止拉取配置");
         // 懒得导包，而且用java17编译包也导不进来，直接反射
