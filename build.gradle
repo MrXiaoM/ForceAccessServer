@@ -4,7 +4,7 @@ plugins {
 }
 
 allprojects {
-    version = '1.0.2'
+    version = '1.0.3'
     group = 'top.mrxiaom'
     description = "修复离线模式下无法进入多人游戏、发送聊天的问题"
     apply plugin: 'java'
