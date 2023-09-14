@@ -13,6 +13,12 @@ function initializeCoreMod() {
                 'name': 'net/minecraft/client/Minecraft'
             },
             'transformer': function (cn) {
+                var authlib318 = false;
+                cn.methods.forEach(function (method) {
+                    if (method.desc.endsWith('Lcom/mojang/authlib/minecraft/BanDetails;')) {
+                        authlib318 = true;
+                    }
+                });
                 cn.methods.forEach(function (mn) {
                     // authlib 2
                     if (mn.desc.endsWith('Lcom/mojang/authlib/minecraft/SocialInteractionsService;')) {
@@ -23,17 +29,24 @@ function initializeCoreMod() {
                         mn.instructions.insertBefore(node, new MethodInsnNode(Opcodes.INVOKESPECIAL, 'top/mrxiaom/fas/UnlimitedSocialInteractions2', '<init>', '()V', false));
                         mn.instructions.insertBefore(node, new InsnNode(Opcodes.ARETURN));
                     }
-                    // authlib 3.3 (1.18+)
-                    // TODO 判断 authlib 版本，兼容 1.19
+                    // authlib 3.3/3.18 (1.18+/1.19+)
                     if (mn.desc.endsWith('Lcom/mojang/authlib/minecraft/UserApiService;')) {
-                        info('ForceAccessServer Mod Injected authlib 3.3 (' + cn.name + '.' + mn.name + ')');
-                        var node = mn.instructions.get(0);
-                        mn.instructions.insertBefore(node, new TypeInsnNode(Opcodes.NEW, 'top/mrxiaom/fas/UnlimitedSocialInteractions3_3'));
-                        mn.instructions.insertBefore(node, new InsnNode(Opcodes.DUP));
-                        mn.instructions.insertBefore(node, new MethodInsnNode(Opcodes.INVOKESPECIAL, 'top/mrxiaom/fas/UnlimitedSocialInteractions3_3', '<init>', '()V', false));
-                        mn.instructions.insertBefore(node, new InsnNode(Opcodes.ARETURN));
+                        if (authlib318) {
+                            info('ForceAccessServer Mod Injected authlib 3.18 (' + cn.name + '.' + mn.name + ')');
+                            var node = mn.instructions.get(0);
+                            mn.instructions.insertBefore(node, new TypeInsnNode(Opcodes.NEW, 'top/mrxiaom/fas/UnlimitedSocialInteractions3_18'));
+                            mn.instructions.insertBefore(node, new InsnNode(Opcodes.DUP));
+                            mn.instructions.insertBefore(node, new MethodInsnNode(Opcodes.INVOKESPECIAL, 'top/mrxiaom/fas/UnlimitedSocialInteractions3_18', '<init>', '()V', false));
+                            mn.instructions.insertBefore(node, new InsnNode(Opcodes.ARETURN));
+                        } else {
+                            info('ForceAccessServer Mod Injected authlib 3.3 (' + cn.name + '.' + mn.name + ')');
+                            var node = mn.instructions.get(0);
+                            mn.instructions.insertBefore(node, new TypeInsnNode(Opcodes.NEW, 'top/mrxiaom/fas/UnlimitedSocialInteractions3_3'));
+                            mn.instructions.insertBefore(node, new InsnNode(Opcodes.DUP));
+                            mn.instructions.insertBefore(node, new MethodInsnNode(Opcodes.INVOKESPECIAL, 'top/mrxiaom/fas/UnlimitedSocialInteractions3_3', '<init>', '()V', false));
+                            mn.instructions.insertBefore(node, new InsnNode(Opcodes.ARETURN));
+                        }
                     }
-                    // TODO authlib 3.18 (1.19+)
 
                     // TODO authlib 4 (1.20+)
 
